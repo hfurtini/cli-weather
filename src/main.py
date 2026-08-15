@@ -4,19 +4,21 @@ import requests
 import os
 from colorama import Fore, init, Style
 from unit_conversor import kelvin_to_celsius, kelvin_to_fahrenheit
+from cache import create_city_cache, read_city_cache
 from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
-from jsonpath_ng import jsonpath, parse
+from jsonpath_ng import parse
 
 init()
 load_dotenv()
 WEATHER_API = os.getenv("WEATHER_API")
 
 parser = argparse.ArgumentParser(description="Displays the day weather summary")
-parser.add_argument("--city", help="select the city to display the weather")
-parser.add_argument("--unit", help="select the unity to display the temperatures")
+parser.add_argument("--city", help="select the city to display the weather", default=read_city_cache())
+parser.add_argument("--unit", help="select the unity to display the temperatures", default="metric")
 
 args = parser.parse_args()
+create_city_cache(args.city)
 
 app = Nominatim(user_agent="coordinates")
 location = app.geocode(args.city).raw
