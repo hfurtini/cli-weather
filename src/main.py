@@ -5,6 +5,7 @@ import os
 from colorama import Fore, init, Style
 from unit_conversor import kelvin_to_celsius, kelvin_to_fahrenheit
 from cache import create_city_cache, read_city_cache
+from emojis import add_emoji
 from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
 from jsonpath_ng import parse
@@ -73,4 +74,5 @@ for match in matches:
 weather_summary = parse("$.weather[*].description")
 matches = [match.value for match in weather_summary.find(json_awnser_formatted)]
 for match in matches:
-    print(Fore.RESET +  Style.DIM + f"Weather description: {match}")
+    print(Fore.RESET +  Style.DIM + f"Weather description: {match}", end=" ")
+add_emoji(weather_summary, json_awnser_formatted)
