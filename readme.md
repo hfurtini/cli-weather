@@ -66,7 +66,7 @@ python main.py --city "London"
 Fetch weather in Fahrenheit:
 
 ```bash
-python main.py --city "New York" --unit fahrenheit
+python main.py --city "New_York" --unit fahrenheit
 ```
 
 Display help:
