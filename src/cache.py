@@ -17,7 +17,7 @@ def create_city_cache(city, file_name="default.json"):
             file.write(json_data)
             file.close
 
-def read_city_cache(flag):
+def read_city_cache():
     init()
     with open("default.json", "r") as json_file:
         content = json.load(json_file)

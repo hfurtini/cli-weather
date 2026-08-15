@@ -9,13 +9,12 @@ from emojis import add_emoji
 from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
 from jsonpath_ng import parse
-flag = False
 init()
 load_dotenv()
 WEATHER_API = os.getenv("WEATHER_API")
 
 parser = argparse.ArgumentParser(description="Displays the day weather summary")
-parser.add_argument("--city", help="select the city to display the weather", default=read_city_cache(flag))
+parser.add_argument("--city", help="select the city to display the weather", default=read_city_cache())
 parser.add_argument("--unit", help="select the unity to display the temperatures", default="metric")
 
 try:    
