@@ -1,6 +1,7 @@
 import json
 import os
 from jsonpath_ng import parse
+from colorama import init, Style
 def create_city_cache(city, file_name="default.json"):
     data = {
         "city": city
@@ -16,7 +17,8 @@ def create_city_cache(city, file_name="default.json"):
             file.write(json_data)
             file.close
 
-def read_city_cache():
+def read_city_cache(flag):
+    init()
     with open("default.json", "r") as json_file:
         content = json.load(json_file)
         city = content['city']

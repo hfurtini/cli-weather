@@ -9,20 +9,29 @@ from emojis import add_emoji
 from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
 from jsonpath_ng import parse
-
+flag = False
 init()
 load_dotenv()
 WEATHER_API = os.getenv("WEATHER_API")
 
 parser = argparse.ArgumentParser(description="Displays the day weather summary")
-parser.add_argument("--city", help="select the city to display the weather", default=read_city_cache())
+parser.add_argument("--city", help="select the city to display the weather", default=read_city_cache(flag))
 parser.add_argument("--unit", help="select the unity to display the temperatures", default="metric")
 
-args = parser.parse_args()
+try:    
+    args = parser.parse_args()
+except SystemExit:
+    print("Error: provide valid flags (-h or --help)")
+    quit()
+
 create_city_cache(args.city)
 
 app = Nominatim(user_agent="coordinates")
-location = app.geocode(args.city).raw
+try:    
+    location = app.geocode(args.city).raw
+except AttributeError:
+    print("Error: provide a valid city")
+    quit()
 latitude = location["lat"]
 longitude = location["lon"]
 
@@ -30,6 +39,25 @@ url = f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={long
 response = requests.get(url)
 json_awnser = json.dumps(response.json())
 json_awnser_formatted = json.loads(json_awnser)
+status_code = response.status_code
+if(status_code == 401):
+    print("Error: verify if the API key is correct and added")
+    quit()
+elif(status_code == 404):
+    print("Error: the server API is not available now. Please try again later.")
+    quit()
+elif(status_code == 429):
+    print("Error: the quota for the provided API key has been exceeded for this API.")
+    quit()
+elif(status_code == 200):
+    pass
+else:
+    print("Error: an error ocourred acessing the API")
+    quit()
+
+if(args.unit != "imperial" and args.unit != "metric"):
+    print(Style.BRIGHT + "Error: provide a valid temperature measurement (ex: --unit UNIT['imperial' or 'metric'])")
+    quit()
 
 temperature = parse("$.main.temp")
 matches = [match.value for match in temperature.find(json_awnser_formatted)]
@@ -50,6 +78,7 @@ for match in matches:
             print(f"Temperature: {kelvin_to_celsius(match)} °C")
         elif args.unit == "imperial":
             print(f"Temperature: {kelvin_to_fahrenheit(match)} °F")
+
 
 
 temperature_sensation = parse("$.main.feels_like")
