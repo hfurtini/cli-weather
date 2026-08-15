@@ -10,4 +10,5 @@ def add_emoji(description, json_awnser_formated):
     elif(weather_icon[0:2] == "09d"): print("❄️")
     elif(weather_icon[0:2] == "10"): print("⛈")
     elif(weather_icon[0:2] == "01"): print("☀️")
+    else: print()
     return
