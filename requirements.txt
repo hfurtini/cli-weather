@@ -1,0 +1,15 @@
+certifi==2026.7.22
+charset-normalizer==3.5.0
+colorama==0.4.6
+geographiclib==2.1
+geopy==2.5.0
+idna==3.18
+iniconfig==2.3.0
+jsonpath-ng==1.8.0
+packaging==26.3
+pluggy==1.6.0
+Pygments==2.20.0
+pytest==9.1.1
+python-dotenv==1.2.2
+requests==2.34.2
+urllib3==2.7.0
