@@ -76,24 +76,6 @@ Display help:
 python main.py -h
 ```
 
-## Roadmap
-
-Roadmap
-
-CLIWeather is actively evolving. Upcoming milestones and features include:
-
-    [ ] Multi-Day Forecasts: Extended daily and hourly forecasting support.
-
-    [ ] Terminal Visualizations: Formatted ASCII tables, sparklines, and charts for weather trends.
-
-    [ ] Performance Optimization: Native C extensions / bindings for core computation and formatting.
-
-    [ ] Packaging & Distribution: Publish to PyPI for single-command installation (pip install cliweather).
-
-    [ ] AI-Powered Insights: Experimental AI-driven trend analysis and activity planning suggestions.
-
-    [ ] Open Source Community: Formal contribution guidelines (CONTRIBUTING.md) and issue templates for public contributors.
-
 ## Contributing
 
 This project is currently maintained as an individual initiative during its MVP phase. It will be opened for public contributions and community participation once core architectural milestones are completed. Stay tuned!
